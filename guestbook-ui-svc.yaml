@@ -3,8 +3,17 @@ kind: Service
 metadata:
   name: guestbook-ui
 spec:
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 80
+    protocol: TCP
+    name: http
   selector:
     app: guestbook-ui
+  # If you want to request a specific external IP, set `loadBalancerIP` (provider must support static IPs)
+  # loadBalancerIP: 1.2.3.4
+  # For some cloud providers you can also set annotations to request a static IP name/resource.
+  # Example (GCP):
+  # annotations:
+  #   cloud.google.com/load-balancer-type: "External"
